@@ -3,10 +3,13 @@ import os
 
 pygame.init()
 
-screen = pygame.display.set_mode([1000, 500])
+winHeight = 600
+winWidth = 600
+
+screen = pygame.display.set_mode([winHeight, winWidth])
 
 board = pygame.image.load(os.path.join('Assets', 'board.jpg'))
-board = pygame.transform.scale(board, (1000, 500))
+board = pygame.transform.scale(board, (winHeight, winWidth))
 
 running = True
 
