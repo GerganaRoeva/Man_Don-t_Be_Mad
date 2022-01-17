@@ -34,9 +34,9 @@ class Button:
 die_button = Button(colors.gray, colors.black, 301, 275, 60, 50, 'Roll Die')
 audio_button = Button(colors.gray, colors.black, 150, 200, 120, 60, 'Audio ON/OFF')
 theme_button = Button(colors.gray, colors.black, 740, 150, 120, 60, 'Change Music')
-two_players_button = Button(colors.gray, colors.black, 400, 530, 200, 100, 'Two Players')
-three_players_button = Button(colors.gray, colors.black, 400, 640, 200, 100, 'Three Players')
-four_players_button = Button(colors.gray, colors.black, 400, 750, 200, 100, 'Four Players')
+two_players_button = Button(colors.gray, colors.black, 400, 530, 200, 50, 'Two Players')
+three_players_button = Button(colors.gray, colors.black, 400, 330, 200, 50, 'Three Players')
+four_players_button = Button(colors.gray, colors.black, 400, 130, 200, 50, 'Four Players')
 
 def change_button(button, pos):
     if button.is_hovering(pos):
