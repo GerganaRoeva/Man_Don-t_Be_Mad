@@ -31,18 +31,18 @@ class Button:
         return False
 
 
-die_button = Button(colors.gray, colors.black, 301, 275, 60, 50, 'Roll Die')
-audio_button = Button(colors.gray, colors.black, 150, 200, 120, 60, 'Audio ON/OFF')
-theme_button = Button(colors.gray, colors.black, 740, 150, 120, 60, 'Change Music')
-two_players_button = Button(colors.gray, colors.black, 400, 530, 200, 50, 'Two Players')
-three_players_button = Button(colors.gray, colors.black, 400, 330, 200, 50, 'Three Players')
-four_players_button = Button(colors.gray, colors.black, 400, 130, 200, 50, 'Four Players')
+die_button = Button(colors.pink, colors.black, 301, 275, 60, 50, 'Roll Die')
+audio_button = Button(colors.pink, colors.black, 150, 200, 120, 60, 'Audio ON/OFF')
+theme_button = Button(colors.pink, colors.black, 740, 150, 120, 60, 'Change Music')
+two_players_button = Button(colors.pink, colors.black, 300, 300, 200, 60, 'Two Players')
+three_players_button = Button(colors.pink, colors.black, 300, 400, 200, 60, 'Three Players')
+four_players_button = Button(colors.pink, colors.black, 300, 500, 200, 60, 'Four Players')
 
 def change_button(button, pos):
     if button.is_hovering(pos):
-            button.color = colors.dark_gray
+            button.color = colors.dark_pink
     else:
-        button.color = colors.gray
+        button.color = colors.pink
 
 def mouse_hovering(event, pos):
     if event.type == pygame.MOUSEMOTION:
