@@ -34,9 +34,9 @@ def draw():
         screen.blit(die_img, (240, 275))
 
     if not gamestart:
-        two_players_button.show_button(screen, colors.black, fonts.calibri)
-        three_players_button.show_button(screen, colors.black, fonts.calibri)
-        four_players_button.show_button(screen, colors.black, fonts.calibri)
+        two_players_button.show_button(screen, colors.black, small_calibri)
+        three_players_button.show_button(screen, colors.black, small_calibri)
+        four_players_button.show_button(screen, colors.black, small_calibri)
 
 def quit():
 
