@@ -29,7 +29,6 @@ class Player:
 def draw():
     if not gamestart:
         screen.blit(menu, (0, 0))
-
         two_players_button.show_button(screen, colors.black, small_calibri)
         three_players_button.show_button(screen, colors.black, small_calibri)
         four_players_button.show_button(screen, colors.black, small_calibri)
