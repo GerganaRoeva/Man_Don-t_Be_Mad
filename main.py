@@ -1,4 +1,3 @@
-from pickle import TRUE
 import random
 import pygame
 import os
@@ -38,8 +37,8 @@ class Player:
     def __init__(self, id):
         self.id = id
 
-def draw_pawns() :
 
+def draw_pawns() :
     for pawn in pawns:
         if pawn.player == 1:
             screen.blit(p1, pawn.pos)
@@ -96,7 +95,6 @@ def check_player():
 
 
 def run():
-
     global die
     global gamestart
     playing = True
@@ -114,7 +112,6 @@ def run():
 
             if event.type == pygame.QUIT:
                 playing = False
-
 
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if die_button.is_hovering(mouse_pos):
@@ -229,7 +226,6 @@ def run():
                 pass
 
                 
-
         pygame.display.update()
 
     pygame.quit()
