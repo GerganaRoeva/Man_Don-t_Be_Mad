@@ -1,3 +1,4 @@
+from pickle import TRUE
 import random
 import pygame
 import os
@@ -93,6 +94,53 @@ def run():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if die_button.is_hovering(mouse_pos):
                     die = random.randint(1, 6)
+                    if die == 6:
+                        for pawn in pawns:
+                            if pawn.player == current_player and not pawn.active:
+                                if current_player == 1:
+                                    pawn.pos = (540, 540)
+                                    pawn.active = True
+                                    break
+                                elif current_player == 2:
+                                    pawn.pos = (10, 10)
+                                    pawn.active = True
+                                    break
+                                elif current_player == 3:
+                                    pawn.pos = (10, 540)
+                                    pawn.active = True
+                                    break
+                                elif current_player == 4:
+                                    pawn.pos = (540, 10)
+                                    pawn.active = True
+                                    break
+                    else:
+                        for i in range (0, die):
+                            for pawn in pawns:
+                                if pawn.player == current_player and pawn.active:
+                                    if pawn.pos[0] > 10 and pawn.pos[1] >= 540:
+                                        new_pos = (pawn.pos[0] - 76 , pawn.pos[1])
+                                        pawn.pos = new_pos
+                                        print(pawn.pos)
+                                        break
+                                    if pawn.pos[0] <= 10 and pawn.pos[1] > 10:
+                                        new_pos = (pawn.pos[0], pawn.pos[1] - 76)
+                                        pawn.pos = new_pos
+                                        print(pawn.pos)
+                                        break
+                                    if pawn.pos[0] < 540 and pawn.pos[1] <= 10 :
+                                        new_pos = (pawn.pos[0] + 76 , pawn.pos[1])
+                                        pawn.pos = new_pos
+                                        print(pawn.pos)
+                                        break
+                                    if pawn.pos[0] >= 540 and pawn.pos[1] < 540:
+                                        new_pos = (pawn.pos[0], pawn.pos[1] + 76)
+                                        pawn.pos = new_pos
+                                        print(pawn.pos)
+                                        break
+
+                        current_player += 1
+                        if current_player > len(players):
+                            current_player = 1
 
             if not gamestart:
                 if event.type == pygame.MOUSEBUTTONDOWN:
