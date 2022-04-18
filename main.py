@@ -33,6 +33,8 @@ gamestart = False
 
 players = []
 current_player = 1
+end = False
+winner = -1
 
 class Player:
     def __init__(self, id):
@@ -50,7 +52,15 @@ def draw_pawns() :
         if pawn.player == 4 and len(players) > 3:
             screen.blit(p4, pawn.pos)
 
+# def end_game(id):
+#     avatar = 'p' + str(id) + '.png'
+#     avatar_img = pygame.image.load(os.path.join('Assets', avatar))
+#     screen.blit(avatar_img, (0, 0))
+
 def draw():
+    global end
+    global winner
+    global gamestart
     if not gamestart:
         screen.blit(menu, (0, 0))
         two_players_button.show_button(screen, colors.black, small_calibri)
@@ -70,6 +80,11 @@ def draw():
             if die == 6:
                 move_button.show_button(screen, colors.black, smaller_comic_sans)
                 spawn_button.show_button(screen, colors.black, smaller_comic_sans)
+    if end:
+        avatar = 'p' + str(winner) + '.png'
+        avatar_img = pygame.image.load(os.path.join('Assets', avatar))
+        screen.blit(avatar_img, (0, 0))
+        gamestart = False
 
     
 def finish_pawn_check(pawn):
@@ -87,23 +102,35 @@ def finish_pawn_check(pawn):
             pawns.remove(pawn)      
 
 def check_player():
+    global end
+    global winner
     counter = 0
     for pawn in pawns:
         if pawn.player == players[current_player - 1].id:
             counter += 1
     if counter == 0:
         players.remove(players[current_player - 1])
+        print(current_player)
+        end = True
+        winner = current_player
 
 
 def run():
 
     global die
+    global winner
+    global end
     global gamestart
     playing = True
     global players
     global current_player
 
     while playing:
+        if end:
+            print(winner)
+            moneytxt = calibri.render('Winner is player: ' + str(winner-1), True, colors.black)
+            screen.blit(moneytxt, (175, 800))
+
         pygame.time.Clock().tick(60)
         draw()
         mouse_pos = pygame.mouse.get_pos()
@@ -119,8 +146,9 @@ def run():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if die_button.is_hovering(mouse_pos):
                     die = random.randint(1, 6)
-                    if die == 6:
-                        for pawn in pawns:
+                    for pawn in pawns:
+                        if die == 6:
+
                             # if event.type == pygame.MOUSEBUTTONDOWN:
                             #     if spawn_button.is_hovering(mouse_pos):
                             #         print("pressed spawn")
@@ -172,38 +200,41 @@ def run():
                             #                         finish_pawn_check(pawn)  
                             #                         break
                                     
-                    else:
-                        for i in range (0, die):
-                            for pawn in pawns:
-                                if pawn.player == players[current_player - 1].id and pawn.active:
-                                    if pawn.pos[0] > 10 and pawn.pos[1] >= 540:
-                                        new_pos = (pawn.pos[0] - 76 , pawn.pos[1])
-                                        pawn.pos = new_pos
-                                        print(pawn.pos)
-                                        finish_pawn_check(pawn)  
-                                        break
-                                    if pawn.pos[0] <= 10 and pawn.pos[1] > 10:
-                                        new_pos = (pawn.pos[0], pawn.pos[1] - 76)
-                                        pawn.pos = new_pos
-                                        print(pawn.pos)
-                                        finish_pawn_check(pawn)  
-                                        break
-                                    if pawn.pos[0] < 540 and pawn.pos[1] <= 10 :
-                                        new_pos = (pawn.pos[0] + 76 , pawn.pos[1])
-                                        pawn.pos = new_pos
-                                        print(pawn.pos)
-                                        finish_pawn_check(pawn)  
-                                        break
-                                    if pawn.pos[0] >= 540 and pawn.pos[1] < 540:
-                                        new_pos = (pawn.pos[0], pawn.pos[1] + 76)
-                                        pawn.pos = new_pos
-                                        print(pawn.pos)
-                                        finish_pawn_check(pawn)  
-                                        break
-                        check_player()
-                        current_player += 1
-                        if current_player > len(players):
-                            current_player = 1
+                        else:
+                            for i in range (0, die):
+                                for pawn in pawns:
+                                    if pawn.player == players[current_player - 1].id and pawn.active:
+                                        if pawn.pos[0] > 10 and pawn.pos[1] >= 540:
+                                            new_pos = (pawn.pos[0] - 76 , pawn.pos[1])
+                                            pawn.pos = new_pos
+                                            print(pawn.pos)
+                                            finish_pawn_check(pawn)  
+                                            break
+                                        if pawn.pos[0] <= 10 and pawn.pos[1] > 10:
+                                            new_pos = (pawn.pos[0], pawn.pos[1] - 76)
+                                            pawn.pos = new_pos
+                                            print(pawn.pos)
+                                            finish_pawn_check(pawn)  
+                                            break
+                                        if pawn.pos[0] < 540 and pawn.pos[1] <= 10 :
+                                            new_pos = (pawn.pos[0] + 76 , pawn.pos[1])
+                                            pawn.pos = new_pos
+                                            print(pawn.pos)
+                                            finish_pawn_check(pawn)  
+                                            break
+                                        if pawn.pos[0] >= 540 and pawn.pos[1] < 540:
+                                            new_pos = (pawn.pos[0], pawn.pos[1] + 76)
+                                            pawn.pos = new_pos
+                                            print(pawn.pos)
+                                            finish_pawn_check(pawn)  
+                                            break
+                            check_player()
+                            current_player += 1
+                            if current_player > len(players):
+                                current_player = 1
+                            
+                            if len(players) == 1:
+                                end = True
 
             if not gamestart:
                 if event.type == pygame.MOUSEBUTTONDOWN:
