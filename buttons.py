@@ -34,7 +34,7 @@ class Button:
 die_button = Button(colors.pink, colors.black, 301, 275, 60, 50, 'Roll Die')
 move_button = Button(colors.pink, colors.black, 370, 285, 50, 30, 'Move')
 spawn_button = Button(colors.pink, colors.black, 180, 285, 50, 30, 'Spawn')
-audio_button = Button(colors.pink, colors.black, 150, 200, 120, 60, 'Audio ON/OFF')
+audio_button = Button(colors.pink, colors.black, 301, 400, 60, 50, 'Audio ON/OFF')
 theme_button = Button(colors.pink, colors.black, 740, 150, 120, 60, 'Change Music')
 two_players_button = Button(colors.pink, colors.black, 300, 300, 200, 60, 'Two Players')
 three_players_button = Button(colors.pink, colors.black, 300, 400, 200, 60, 'Three Players')

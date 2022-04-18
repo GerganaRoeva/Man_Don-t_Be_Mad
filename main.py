@@ -5,6 +5,7 @@ import os
 from pawns import pawns
 from buttons import *
 from fonts import *
+from audio import *
 
 pygame.init()
 
@@ -30,7 +31,7 @@ p4 = pygame.transform.scale(p4, (50, 50))
 
 die = 0 # initial val 
 gamestart = False
-
+audio_on = True
 players = []
 current_player = 1
 end = False
@@ -41,7 +42,6 @@ class Player:
         self.id = id
 
 def draw_pawns() :
-
     for pawn in pawns:
         if pawn.player == 1:
             screen.blit(p1, pawn.pos)
@@ -69,6 +69,9 @@ def draw():
 
     else:
         screen.blit(board, (0, 0))
+        audio_button.show_button(screen, colors.black, fonts.smaller_calibri)
+        theme_button.show_button(screen, colors.black, fonts.smaller_calibri)
+
         die_button.show_button(screen, colors.black, smaller_corbel)
         draw_pawns()
 
@@ -104,6 +107,10 @@ def finish_pawn_check(pawn):
 def check_player():
     global end
     global winner
+    global audio_on
+    if audio_on:
+        move_sound.play()
+
     counter = 0
     for pawn in pawns:
         if pawn.player == players[current_player - 1].id:
@@ -114,16 +121,17 @@ def check_player():
         end = True
         winner = current_player
 
-
 def run():
-
     global die
     global winner
     global end
     global gamestart
-    playing = True
     global players
     global current_player
+    global audio_on
+    current_music = 0
+    themes[current_music].play(-1)
+    playing = True
 
     while playing:
         if end:
@@ -142,6 +150,22 @@ def run():
             if event.type == pygame.QUIT:
                 playing = False
 
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if audio_button.is_hovering(mouse_pos):
+                    if audio_on:
+                        audio_on = False
+                        pygame.mixer.pause()
+                    else:
+                        audio_on = True
+                        pygame.mixer.unpause()
+
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if theme_button.is_hovering(mouse_pos):
+                    if current_music == 4:
+                        current_music = -1
+                    current_music += 1
+                    pygame.mixer.stop()
+                    themes[current_music].play(-1)
 
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if die_button.is_hovering(mouse_pos):
